@@ -15,26 +15,30 @@ public class Entry<T> {
 
 	private T content;
 	private String uri;
+	private String contentType;
 	private List<Entry<T>> subEntries;
-	
+
 	public Entry() {
 		this.subEntries = new ArrayList<Entry<T>>();
 	}
-	
+
 	public Entry(T content) {
 		this.content = content;
+		this.contentType = getContentType(content);
 		this.subEntries = new ArrayList<Entry<T>>();
 	}
 
 	public Entry(T content, String uri) {
 		this.content = content;
 		this.uri = uri;
+		this.contentType = getContentType(content);
 		this.subEntries = new ArrayList<Entry<T>>();
 	}
 
 	public Entry(T content, String uri, List<Entry<T>> subEntries) {
 		this.content = content;
 		this.uri = uri;
+		this.contentType = getContentType(content);
 		this.subEntries = subEntries;
 	}
 
@@ -44,6 +48,7 @@ public class Entry<T> {
 
 	public void setContent(T content) {
 		this.content = content;
+		this.contentType = getContentType(content);
 	}
 
 	public String getUri() {
@@ -70,6 +75,31 @@ public class Entry<T> {
 		return new Entry.Builder();
 	}
 
+	/*
+	 * public static NoteBuilder noteBuilder(Note note) { return new
+	 * Entry.NoteBuilder(note); }
+	 * 
+	 * public static class NoteBuilder extends Builder<Note> {
+	 * 
+	 * public NoteBuilder(Note note) { setEntryInstance(new Entry<Note>(note));
+	 * }
+	 * 
+	 * public Entry<Note> build() { return getEntryInstance(); }
+	 * 
+	 * }
+	 * 
+	 * public static TaskBuilder taskBuilder(Task task) { return new
+	 * Entry.TaskBuilder(task); }
+	 * 
+	 * public static class TaskBuilder extends Builder<Task> { public
+	 * TaskBuilder(Task task) { setEntryInstance(new Entry<Task>(task)); }
+	 * 
+	 * public Entry<Task> build() { return getEntryInstance(); }
+	 * 
+	 * }
+	 */
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static class Builder {
 		private Entry instance = new Entry();
 
@@ -78,22 +108,22 @@ public class Entry<T> {
 		}
 
 		public Builder withNote(Note note) {
-			instance.content = note;
+			instance.setContent(note);
 			return this;
 		}
 
 		public Builder withTask(Task task) {
-			instance.content = task;
+			instance.setContent(task);
 			return this;
 		}
 
 		public Builder withEvent(Event event) {
-			instance.content = event;
+			instance.setContent(event);
 			return this;
 		}
 
 		public Builder withUri(String uri) {
-			instance.uri = uri;
+			instance.setUri(uri);
 			return this;
 		}
 
@@ -116,6 +146,18 @@ public class Entry<T> {
 	@Override
 	public String toString() {
 		return Pojomatic.toString(this);
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	private String getContentType(T content) {
+		return content.getClass().getSimpleName();
 	}
 
 }
