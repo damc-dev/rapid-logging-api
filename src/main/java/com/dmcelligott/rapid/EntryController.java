@@ -5,12 +5,14 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dmcelligott.rapid.model.Entry;
+import com.dmcelligott.rapid.model.entry.Note;
 import com.dmcelligott.rapid.service.EntryService;
 
 @RestController
@@ -26,5 +28,12 @@ public class EntryController {
 	public ResponseEntity<Iterable<Entry>> listEntities() {
 		return new ResponseEntity<Iterable<Entry>>(service.findAll(), HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = {RequestMethod.POST}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<Entry<Note>> saveNote(@RequestBody Note note) {
+		return new ResponseEntity<Entry<Note>>(service.saveNote(note), HttpStatus.CREATED);
+	}
+
+
 
 }

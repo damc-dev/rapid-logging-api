@@ -75,30 +75,6 @@ public class Entry<T> {
 		return new Entry.Builder();
 	}
 
-	/*
-	 * public static NoteBuilder noteBuilder(Note note) { return new
-	 * Entry.NoteBuilder(note); }
-	 * 
-	 * public static class NoteBuilder extends Builder<Note> {
-	 * 
-	 * public NoteBuilder(Note note) { setEntryInstance(new Entry<Note>(note));
-	 * }
-	 * 
-	 * public Entry<Note> build() { return getEntryInstance(); }
-	 * 
-	 * }
-	 * 
-	 * public static TaskBuilder taskBuilder(Task task) { return new
-	 * Entry.TaskBuilder(task); }
-	 * 
-	 * public static class TaskBuilder extends Builder<Task> { public
-	 * TaskBuilder(Task task) { setEntryInstance(new Entry<Task>(task)); }
-	 * 
-	 * public Entry<Task> build() { return getEntryInstance(); }
-	 * 
-	 * }
-	 */
-
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static class Builder {
 		private Entry instance = new Entry();
