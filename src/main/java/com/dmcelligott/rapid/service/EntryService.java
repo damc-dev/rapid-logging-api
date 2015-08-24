@@ -3,10 +3,8 @@ package com.dmcelligott.rapid.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dmcelligott.rapid.dao.NoteDao;
 import com.dmcelligott.rapid.model.Entry;
 import com.dmcelligott.rapid.model.entry.Note;
 import com.dmcelligott.rapid.model.entry.Task;
